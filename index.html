@@ -1,0 +1,70 @@
+<head>
+<script src="./js/jquery-1.10.2.min.js"></script>
+<script src="./js/underscore-min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<script type="text/javascript">
+function doWork() {
+  // should we include two buttons pushed simultaneously in the code?
+  includeTwo = $("#includeTwo").is(":checked");
+  // how long should the code be?
+  codeLen = Number($("#codeLen").val());
+  var digits = [1,2,3,4,5];
+  seq = _.sample(digits, codeLen);
+  console.log(seq);
+
+  if(codeLen > 1 && includeTwo) {
+    //start = rand(0,n-2)
+    //end = start+1
+    start = Math.floor((Math.random() * (codeLen-1)));
+    console.log("start: " + start);
+    end = start+1
+      console.log("end : " + end);
+
+    //what to splice
+    insert = "(" + seq[start] + " " + seq[end] + ")";
+    console.log("insert: " + insert);
+    seq.splice(start, 2, insert);
+    console.log(seq);
+  }
+
+  $("#log").html(seq.join(" "));
+  return false;
+}
+</script>
+
+</head>
+<body>
+
+
+<div class="row">
+  <div class="col-md-4 col-md-offset-4" >
+    <!-- header -->
+    <center><h1>doorcode generator</h1></center>
+
+    <div class="form-group form-inline">
+      <label>
+        Include 2 buttons pushed at once?
+        <input id="includeTwo" type="checkbox"> 
+      </label>
+      <br />
+      <label> Length of code desired: </label>
+      <select class="form-control" id="codeLen">
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+      </select>
+      <br /><br />
+      <center><button action="#" onclick="return doWork()">go</button></center>
+    </div>
+
+    <!-- results -->
+    <center><h1 id="log"></h1></center>
+  </div>
+</div>
+
+
+</body>
